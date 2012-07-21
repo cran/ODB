@@ -15,7 +15,7 @@
 
 \arguments{
   \item{odb}{
-    An \code{odb} object, as produced by \code{\link{odb.open}}.
+    An \code{\linkS4class{ODB}} object, as produced by \code{\link{odb.open}}.
 }
   \item{sqlQuery}{
     A single character value, containing an unique SQL query to be executed.
@@ -42,6 +42,10 @@
   Sylvain Mareschal
 }
 
+\note{
+  To query databases built with OpenOffice or LibreOffice, it may be necessary to quote table and/or column names in \code{sqlQuery}, as the default behavior of the HSQL engine is to convert unquoted table and column names to uppercases.
+}
+
 \seealso{
   \code{\link{odb.write}}
 }
@@ -49,26 +53,26 @@
 \examples{
   # New empty .odb file
   odb.create("test.odb", overwrite="do")
-  ODB <- odb.open("test.odb")
+  odb <- odb.open("test.odb")
   
   # New table
   SQL <- "CREATE TABLE fruits (
     name VARCHAR(6) PRIMARY KEY,
     color VARCHAR(32)
   )"
-  odb.write(ODB, SQL)
+  odb.write(odb, SQL)
   
   # Data insertion
   dat <- data.frame(
     c("banana", "pear", "peach"),
     c("yellow", "yellow", "purple")
   )
-  odb.insert(ODB, "fruits", dat)
+  odb.insert(odb, "fruits", dat)
   
   # Read content
-  print(odb.read(ODB, "SELECT * FROM fruits"))
+  print(odb.read(odb, "SELECT * FROM fruits"))
   
   # Writes to the file and closes the connection
-  odb.close(ODB, write=TRUE)
+  odb.close(odb, write=TRUE)
 }
 

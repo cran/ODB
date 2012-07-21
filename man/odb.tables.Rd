@@ -14,7 +14,7 @@
 
 \arguments{
   \item{odb}{
-    An \code{odb} object, as produced by \code{\link{odb.open}}.
+    An \code{\linkS4class{ODB}} object, as produced by \code{\link{odb.open}}.
 }
 }
 
@@ -33,7 +33,7 @@
 \examples{
   # New empty .odb file
   odb.create("test.odb", overwrite="do")
-  ODB <- odb.open("test.odb")
+  odb <- odb.open("test.odb")
   
   # New tables
   SQL <- c(
@@ -46,12 +46,12 @@
       color VARCHAR(32)
       )"
     )
-  odb.write(ODB, SQL)
+  odb.write(odb, SQL)
   
   # Print tables
-  print(odb.tables(ODB))
+  print(odb.tables(odb))
   
   # Writes to the file and closes the connection
-  odb.close(ODB, write=TRUE)
+  odb.close(odb, write=TRUE)
 }
 

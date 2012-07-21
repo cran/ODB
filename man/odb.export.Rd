@@ -14,7 +14,7 @@
 
 \arguments{
   \item{odb}{
-    An \code{odb} object, as produced by \code{\link{odb.open}}.
+    An \code{\linkS4class{ODB}} object, as produced by \code{\link{odb.open}}.
 }
   \item{file}{
     Path to the file in which export the SQL queries.
@@ -38,15 +38,15 @@
 \examples{
   # New empty .odb file
   odb.create("test.odb", overwrite="do")
-  ODB <- odb.open("test.odb")
+  odb <- odb.open("test.odb")
   
   # New table
-  odb.write(ODB, "CREATE TABLE fruits (name VARCHAR(6) PRIMARY KEY)")
-  odb.insert(ODB, "fruits", c("banana", "pear", "peach"))
+  odb.write(odb, "CREATE TABLE fruits (name VARCHAR(6) PRIMARY KEY)")
+  odb.insert(odb, "fruits", c("banana", "pear", "peach"))
   
   # Export to a file
-  odb.export(ODB, "fruits.sql")
+  odb.export(odb, "fruits.sql")
   
   # Writes to the file and closes the connection
-  odb.close(ODB, write=TRUE)
+  odb.close(odb, write=TRUE)
 }

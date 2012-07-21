@@ -1,7 +1,7 @@
 \name{odb.close}
 \alias{odb.close}
 \title{
-  Closes an "odb" connection and updates the .odb file
+  Closes an "ODB" connection and updates the .odb file
 }
 
 \description{
@@ -14,7 +14,7 @@
 
 \arguments{
   \item{odb}{
-    An \code{odb} object, as produced by \code{\link{odb.open}}.
+    An \code{\linkS4class{ODB}} object, as produced by \code{\link{odb.open}}.
 }
   \item{write}{
     Single logical value, defining if the modifications has to be saved in the original .odb file or not. Notice they will be definitively lost if closing with write=FALSE.
@@ -40,12 +40,12 @@
 \examples{
   # New empty .odb file
   odb.create("test.odb", overwrite="do")
-  ODB <- odb.open("test.odb")
+  odb <- odb.open("test.odb")
   
   # New table
-  odb.write(ODB, "CREATE TABLE fruits (name VARCHAR(6) PRIMARY KEY)")
-  odb.insert(ODB, "fruits", c("banana", "pear", "peach"))
+  odb.write(odb, "CREATE TABLE fruits (name VARCHAR(6) PRIMARY KEY)")
+  odb.insert(odb, "fruits", c("banana", "pear", "peach"))
   
   # Writes to the file and closes the connection
-  odb.close(ODB, write=TRUE)
+  odb.close(odb, write=TRUE)
 }

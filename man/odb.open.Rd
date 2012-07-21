@@ -22,7 +22,7 @@ Creates a connection to a .odb file
 }
 
 \value{
-  An object of class "odb", which will be used by every other functions of the package.
+  An object of class "ODB", which will be used by every other functions of the package.
 }
 
 \author{
@@ -46,12 +46,12 @@ Creates a connection to a .odb file
 \examples{
   # New empty .odb file
   odb.create("test.odb", overwrite="do")
-  ODB <- odb.open("test.odb")
+  odb <- odb.open("test.odb")
   
   # New table
-  odb.write(ODB, "CREATE TABLE fruits (name VARCHAR(6) PRIMARY KEY)")
-  odb.insert(ODB, "fruits", c("banana", "pear", "peach"))
+  odb.write(odb, "CREATE TABLE fruits (name VARCHAR(6) PRIMARY KEY)")
+  odb.insert(odb, "fruits", c("banana", "pear", "peach"))
   
   # Writes to the file and closes the connection
-  odb.close(ODB, write=TRUE)
+  odb.close(odb, write=TRUE)
 }

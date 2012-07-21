@@ -16,7 +16,7 @@
 
 \arguments{
   \item{odb}{
-    An \code{odb} object, as produced by \code{\link{odb.open}}.
+    An \code{\linkS4class{ODB}} object, as produced by \code{\link{odb.open}}.
 }
   \item{tableNames}{
     Character vector naming tables to search comments in. See the 'Details' section.
@@ -33,7 +33,7 @@
 }
 
 \details{
-  \code{tableNames}, \code{columnNames} and \code{value} can be considered as columns from a same data.frame: the first comment considered will be the comment on the first \code{columnNames} for the first \code{tableNames}, and so on. Vectors are repeted to achieve same lengths if necessary.
+  \code{tableNames}, \code{columnNames} and \code{value} can be considered as columns from a same data.frame: the first comment considered will be the comment on the first \code{columnNames} for the first \code{tableNames}, and so on. Vectors are repeated to achieve same lengths if necessary.
 
   The \code{NULL} value can be used for \code{tableNames} and \code{columnNames} in the first syntax, with the meaning of "all possible values". See the 'Examples' section.
 }

@@ -13,23 +13,24 @@
 ### You should have received a copy of the GNU General Public License
 ### along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Check if a DBI or odb connection is closed
-isClosed = function(
-		connection
-		)
-	{
-	# Connection check
-	if (!inherits(connection, "DBIConnection")) {
-		stop("'connection' must inherit from 'DBIConnection', or be an 'ODB' connection")
-	}
-	
-	# Test
-	closed = tryCatch(
-		dbSendUpdate(connection, ""),
-		error = function(e) {
-			return(grepl("Connection is closed", conditionMessage(e)))
-		}
-	)
-	
-	return(!is.null(closed))
+# Converts XML entities
+entityEncode <- function(from) {
+	from <- gsub("&", "&amp;", from)
+	from <- gsub("'", "&apos;", from)
+	from <- gsub(">", "&gt;", from)
+	from <- gsub("<", "&lt;", from)
+	from <- gsub("\"", "&quot;", from)
+	from <- gsub("\n", "&#x0a;", from)
+	from <- gsub("\t", "&#x09;", from)
+	return(from)
+}
+entityDecode <- function(from) {
+	from <- gsub("&amp;", "&", from)
+	from <- gsub("&apos;", "'", from)
+	from <- gsub("&gt;", ">", from)
+	from <- gsub("&lt;", "<", from)
+	from <- gsub("&quot;", "\"", from)
+	from <- gsub("&#x0a;", "\n", from)
+	from <- gsub("&#x09;", "\t", from)
+	return(from)
 }

@@ -1,5 +1,19 @@
+### Copyright (C) 2012 Sylvain Mareschal <maressyl@gmail.com>
+### 
+### This program is free software: you can redistribute it and/or modify
+### it under the terms of the GNU General Public License as published by
+### the Free Software Foundation, either version 3 of the License, or
+### (at your option) any later version.
+### 
+### This program is distributed in the hope that it will be useful,
+### but WITHOUT ANY WARRANTY; without even the implied warranty of
+### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+### GNU General Public License for more details.
+### 
+### You should have received a copy of the GNU General Public License
+### along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 # Generates INSERT INTO queries from a data.frame fitting an ODB base
-# Author : Sylvain Mareschal
 odb.insert = function(
 		odb,
 		tableName,
@@ -10,8 +24,8 @@ odb.insert = function(
 		)
 	{
 	# Class checks
-	if (!is(odb, "odb")) {
-		stop("'odb' must be an 'odb' object")
+	if (!is(odb, "ODB")) {
+		stop("'odb' must be an 'ODB' object")
 	}
 	validObject(odb)
 	
@@ -53,7 +67,7 @@ odb.insert = function(
 	isna = is.na(mtx)
 	mtx[, overview$field.type == "DATE" ] = as.character(strptime(mtx[, overview$field.type == "DATE" ], dateFormat))
 	mtx[, overview$data.type == "character" ] = paste(sep="", "'", gsub("'", "''", mtx[, overview$data.type == "character" ]), "'")
-	mtx[, overview$data.type == "numeric" ] = gsub("[^0-9\\.]", "", mtx[, overview$data.type == "numeric" ])
+	mtx[, overview$data.type == "numeric" ] = gsub("[^0-9\\.-]", "", mtx[, overview$data.type == "numeric" ])
 	mtx[ isna ] = "NULL"
 	
 	# Aggregation

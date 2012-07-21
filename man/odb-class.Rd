@@ -1,10 +1,10 @@
-\name{odb-class}
+\name{ODB-class}
 \Rdversion{1.1}
 \docType{class}
-\alias{odb-class}
-\alias{show,odb-method}
+\alias{ODB-class}
+\alias{show,ODB-method}
 
-\title{Class "odb"}
+\title{Class "ODB"}
 \description{
   A connection to an Open Document Base (.odb) embedded HSQL database.
   
@@ -39,7 +39,7 @@
 
 \section{Methods}{
   \describe{
-    \item{show}{ \code{signature(object = "odb")} }
+    \item{show}{ \code{signature(object = "ODB")} }
 	}
   See also inherited methods.
 }

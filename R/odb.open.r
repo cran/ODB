@@ -1,14 +1,34 @@
-# Check and open a connection to an OpenOffice.org database (odb) file
-# Author : Sylvain Mareschal
+### Copyright (C) 2012 Sylvain Mareschal <maressyl@gmail.com>
+### 
+### This program is free software: you can redistribute it and/or modify
+### it under the terms of the GNU General Public License as published by
+### the Free Software Foundation, either version 3 of the License, or
+### (at your option) any later version.
+### 
+### This program is distributed in the hope that it will be useful,
+### but WITHOUT ANY WARRANTY; without even the implied warranty of
+### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+### GNU General Public License for more details.
+### 
+### You should have received a copy of the GNU General Public License
+### along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Check and open a connection to an Open Document Database file
 odb.open = function(
 		odbFile,
 		jarFile = NULL
 		)
 	{
-	# File Checks
+	# Default jarFile
 	if (is.null(jarFile)) {
-		jarFile = system.file("tools/hsqldb.jar", package="ODB")
+		jarFile <- system.file("tools/hsqldb.jar", package="ODB")
 	}
+	
+	# Normalized paths
+	odbFile <- normalizePath(odbFile)
+	jarFile <- normalizePath(jarFile)
+	
+	# File Checks
 	if (!file.exists(jarFile)) {
 		stop(call.=FALSE, "File 'jarFile' does not exist")
 	}
@@ -122,7 +142,7 @@ odb.open = function(
 	
 	# S4 Object to return
 	odb = new(
-		Class = "odb",
+		Class = "ODB",
 		connection,
 		directory = directory,
 		odbFile = odbFile,
@@ -130,6 +150,6 @@ odb.open = function(
 		jarFile = jarFile,
 		jarVersion = jarVersion
 	)
-		
+	
 	return(odb)
 }

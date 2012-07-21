@@ -16,7 +16,7 @@
 
 \arguments{
   \item{odb}{
-    An \code{odb} object, as produced by \code{\link{odb.open}}.
+    An \code{\linkS4class{ODB}} object, as produced by \code{\link{odb.open}}.
 }
   \item{queryNames}{
     Character vector naming queries to get or set.
@@ -49,26 +49,26 @@
 \examples{
   # New empty .odb file
   odb.create("test.odb", overwrite="do")
-  ODB <- odb.open("test.odb")
+  odb <- odb.open("test.odb")
   
   # New table
-  odb.write(ODB, "CREATE TABLE fruits (name VARCHAR(6) PRIMARY KEY)")
-  odb.insert(ODB, "fruits", c("banana", "pear", "peach"))
+  odb.write(odb, "CREATE TABLE fruits (name VARCHAR(6) PRIMARY KEY)")
+  odb.insert(odb, "fruits", c("banana", "pear", "peach"))
   
   # Single query
-  odb.queries(ODB, "banana") = "SELECT * FROM fruits WHERE name='banana'"
-  print(odb.read(ODB, odb.queries(ODB, "banana")))
+  odb.queries(odb, "banana") = "SELECT * FROM fruits WHERE name='banana'"
+  print(odb.read(odb, odb.queries(odb, "banana")))
   
   # Multiple queries
-  odb.queries(ODB, c("banana","pear")) <- c(
+  odb.queries(odb, c("banana","pear")) <- c(
     "SELECT * FROM fruits WHERE name='banana'",
     "SELECT * FROM fruits WHERE name='pear'"
   )
   
   # All queries
-  print(odb.queries(ODB))
+  print(odb.queries(odb))
   
   # Writes to the file and closes the connection
-  odb.close(ODB, write=TRUE)
+  odb.close(odb, write=TRUE)
 }
 

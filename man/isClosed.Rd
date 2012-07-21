@@ -5,7 +5,7 @@
 }
 
 \description{
-  Checks if a connection inheriting from the \code{DBIConnection} class (including 'odb' connections) is closed.
+  Checks if a connection inheriting from the \code{DBIConnection} class (including 'ODB' connections) is closed.
 }
 
 \usage{

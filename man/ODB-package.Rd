@@ -29,7 +29,7 @@
   
   Effects of all these functions can be achieved manually via the OpenOffice or LibreOffice Base softwares, obviously this package offers a way of making it automaticaly on a wider scale. Both manual and automatic modifications can be done on the same .odb file, but you are strongly recommended to not use the two methods simultaneously. This R package works on a copy of the file made at the \code{\link{odb.open}} call, and this copy will replace the original file at the \code{\link{odb.close}} call, regardless of what happened between the two calls.
   
-  Additional tools are also provided, notably \code{\link{odb.export}}, \code{\link{odb.zip}} and \code{\link{isClosed}}.
+  Additional tools are also provided, notably \code{\link{odb.export}} and \code{\link{isClosed}}.
   
   See the 'examples' section for more details on the package behavior.
 }
@@ -46,50 +46,50 @@
   odb.create("test.odb", overwrite="do")
 
   # Connection to the file
-  ODB <- odb.open("test.odb")
+  odb <- odb.open("test.odb")
   
   
   ## STRUCTURE ##
   
   # Creation of a new table
   SQL <- "CREATE TABLE fruits (id INTEGER PRIMARY KEY, value VARCHAR(8))"
-  odb.write(ODB, SQL)
+  odb.write(odb, SQL)
   
   # Addition of comments on columns
-  odb.comments(ODB, "fruits", c("id", "value")) <- c("Fruit rank", "Fruit name")
+  odb.comments(odb, "fruits", c("id", "value")) <- c("Fruit rank", "Fruit name")
   
   # Printing of the database structure
-  print(odb.tables(ODB))
+  print(odb.tables(odb))
   
   # Printing of a specific comment
-  print(odb.comments(ODB, "fruits", "value"))
+  print(odb.comments(odb, "fruits", "value"))
   
   
   ## DATA ##
   
   # Insertion of data
   data <- data.frame(id=1:3, value=c("apple", "orange", "pear"))
-  odb.insert(ODB, tableName="fruits", data=data, execute=TRUE)
+  odb.insert(odb, tableName="fruits", data=data, execute=TRUE)
   
   # Reading
-  print(odb.read(ODB, "SELECT * FROM fruits WHERE id=2"))
+  print(odb.read(odb, "SELECT * FROM fruits WHERE id=2"))
   
   # Saved query
-  odb.queries(ODB, "2nd record") <- "SELECT * FROM fruits WHERE id=2"
-  print(odb.read(ODB, odb.queries(ODB, "2nd record")))
+  odb.queries(odb, "2nd record") <- "SELECT * FROM fruits WHERE id=2"
+  print(odb.read(odb, odb.queries(odb, "2nd record")))
   
   # SQL export
-  odb.export(ODB, "test.sql")
+  odb.export(odb, "test.sql")
   
   
   ## DISCONNECTION ##
   
   # Is the connection closed ?
-  print(isClosed(ODB))
+  print(isClosed(odb))
   
   # Save changes in the .odb file
-  odb.close(ODB, write=TRUE)
+  odb.close(odb, write=TRUE)
   
   # And now ?
-  print(isClosed(ODB))
+  print(isClosed(odb))
 }

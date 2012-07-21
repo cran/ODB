@@ -1,37 +1,49 @@
-# Author : Sylvain Mareschal
+### Copyright (C) 2012 Sylvain Mareschal <maressyl@gmail.com>
+### 
+### This program is free software: you can redistribute it and/or modify
+### it under the terms of the GNU General Public License as published by
+### the Free Software Foundation, either version 3 of the License, or
+### (at your option) any later version.
+### 
+### This program is distributed in the hope that it will be useful,
+### but WITHOUT ANY WARRANTY; without even the implied warranty of
+### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+### GNU General Public License for more details.
+### 
+### You should have received a copy of the GNU General Public License
+### along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Returns a character vector of SQL queries stored in an Open Document Database file
 odb.queries = function(
 		odb,
 		queryNames = NULL
 		)
 	{
 	# Class checks
-	if (!is(odb, "odb")) {
-		stop("'odb' must be an 'odb' object")
+	if (!is(odb, "ODB")) {
+		stop("'odb' must be an 'ODB' object")
 	}
 	validObject(odb)
 	
-	# SAX parsing
-	results = xmlEventParse(
-		file = paste(odb@directory, "content.xml", sep="/"),
-		handlers = list(
-			.startElement = function(.name, .attrs, .space, .spaces, .state) {
-				# Query tag
-				if (names(.space) == "db" && .name == "query") {
-					queryName = iconv(.attrs["name"], from="UTF-8")
-					if (is.null(queryNames) || queryName %in% queryNames) {
-						query = iconv(.attrs["command"], from="UTF-8")
-						names(query) = queryName
-						.state = c(.state, query)
-					}
-				}
-				return(.state)
+	# Text reading
+	content <- scan(file=sprintf("%s/content.xml", odb@directory), what="", sep="\n", quiet=TRUE, fileEncoding="UTF8")
+	content <- paste(content, collapse="\n")
+	
+	# Target positions
+	queryTags <- gregexpr("<db:query.*?/>", content)[[1]]
+	
+	# Extraction
+	results <- character(0)
+	for(i in 1:length(queryTags)) {
+		if(queryTags[i] != -1) {
+			tag <- substr(content, queryTags[i], queryTags[i] + attr(queryTags, "match.length")[i] - 1L)
+			name <- entityDecode(sub("^.*db:name=\"(.*?)\".*$", "\\1", tag))
+			if(is.null(queryNames) || name %in% queryNames) {
+				command <- entityDecode(sub("^.*db:command=\"(.*?)\".*$", "\\1", tag))
+				results[ name ] <- command
 			}
-		),
-		state = character(0),
-		useDotNames = TRUE,
-		useTagName = FALSE,
-		saxVersion = 2
-	)
+		}
+	}
 	
 	return(results)	
 }

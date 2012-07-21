@@ -15,7 +15,7 @@
 
 \arguments{
   \item{odb}{
-    An \code{odb} object, as produced by \code{\link{odb.open}}.
+    An \code{\linkS4class{ODB}} object, as produced by \code{\link{odb.open}}.
 }
   \item{tableName}{
     Single character value, naming the table from the database in which insert the data. No quoting is added so the HSQL engine will convert it to upper case, to refer to a case-specific table name you are required to double-quote this value.
@@ -49,7 +49,7 @@
 \examples{
   # New empty .odb file
   odb.create("test.odb", overwrite="do")
-  ODB <- odb.open("test.odb")
+  odb <- odb.open("test.odb")
   
   
   ## CASE-INSENSITIVE
@@ -59,17 +59,17 @@
     name VARCHAR(6) PRIMARY KEY,
     color VARCHAR(32)
   )"
-  odb.write(ODB, SQL)
+  odb.write(odb, SQL)
   
   # Data insertion
   dat <- data.frame(
     c("banana", "pear", "peach"),
     c("yellow", "yellow", "purple")
   )
-  odb.insert(ODB, "fruits", dat)
+  odb.insert(odb, "fruits", dat)
   
   # Check content
-  print(odb.read(ODB, "SELECT * FROM fruits"))
+  print(odb.read(odb, "SELECT * FROM fruits"))
   
   
   ## CASE-SENSITIVE
@@ -79,22 +79,22 @@
     name VARCHAR(6) PRIMARY KEY,
     color VARCHAR(32)
   )"
-  odb.write(ODB, SQL)
+  odb.write(odb, SQL)
   
   # Data insertion
   dat <- data.frame(
     c("banana", "pear", "peach"),
     c("yellow", "yellow", "purple")
   )
-  odb.insert(ODB, "\"Fruits\"", dat)
+  odb.insert(odb, "\"Fruits\"", dat)
   
   # Check content
-  print(odb.read(ODB, "SELECT * FROM \"Fruits\""))
+  print(odb.read(odb, "SELECT * FROM \"Fruits\""))
   
   
   # Notice they are distinct tables
-  print(odb.tables(ODB))
+  print(odb.tables(odb))
   
   # Writes to the file and closes the connection
-  odb.close(ODB, write=TRUE)
+  odb.close(odb, write=TRUE)
 }
