@@ -27,6 +27,17 @@ odb.close = function(
 	
 	# Updates the .odb file properly
 	if(isTRUE(write)) {
+		# Zip check
+		cat("test", file="test.txt")
+		check <- utils::zip(
+			zipfile = "test.zip",
+			files = "test.txt",
+			flags = "-r9Xq"
+		)
+		unlink("test.txt")
+		if(check == 0) unlink("test.zip")
+		else           stop("utils::zip does not seem to work on your platform, ODB file update can not be performed.")
+		
 		# HSQLDB disconnection with file compaction
 		tryCatch(
 			dbSendUpdate(odb, "SHUTDOWN COMPACT"),
@@ -48,11 +59,12 @@ odb.close = function(
 		# Updates the ODB archive
 		wd <- getwd()
 		setwd(odb@directory)
-		utils::zip(
+		status <- utils::zip(
 			zipfile = odb@odbFile,
 			files = c("content.xml", "database"),
 			flags = "-r9Xq"
 		)
+		if(status != 0) stop(sprintf("ODB file building failed (code %s)", status))
 		setwd(wd)
 	} else {
 		# HSQLDB disconnection attempt

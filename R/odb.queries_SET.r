@@ -39,7 +39,7 @@
 	value <- entityEncode(value)
 	
 	# Text reading
-	content <- scan(file=sprintf("%s/content.xml", odb@directory), what="", sep="\n", quiet=TRUE, fileEncoding="UTF8")
+	content <- scan(file=sprintf("%s/content.xml", odb@directory), what="", sep="\n", quiet=TRUE, fileEncoding="UTF-8")
 	content <- paste(content, collapse="\n")
 	
 	for(i in 1:length(value)) {
@@ -79,7 +79,7 @@
 	}
 	
 	# Save XML to file
-	conn <- file(sprintf("%s/content.xml", odb@directory), open="wt", blocking=FALSE, encoding="UTF8")
+	conn <- file(sprintf("%s/content.xml", odb@directory), open="wt", blocking=FALSE, encoding="UTF-8")
 	cat(content, file=conn)
 	close(conn)
 	

@@ -26,7 +26,7 @@ odb.queries = function(
 	validObject(odb)
 	
 	# Text reading
-	content <- scan(file=sprintf("%s/content.xml", odb@directory), what="", sep="\n", quiet=TRUE, fileEncoding="UTF8")
+	content <- scan(file=sprintf("%s/content.xml", odb@directory), what="", sep="\n", quiet=TRUE, fileEncoding="UTF-8")
 	content <- paste(content, collapse="\n")
 	
 	# Target positions

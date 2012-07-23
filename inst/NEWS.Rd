@@ -1,5 +1,11 @@
 \name{ODB-news}
 \title{ODB package NEWS}
+\section{Changes in version 1.1.1 (2012-07-23)}{
+  \itemize{
+	\item{Zip command check added before odb.close processing}
+	\item{'UTF8' encoding name replaced by 'UTF-8' for Solaris compatibility}
+  }
+}
 \section{Changes in version 1.1.0 (2012-07-21)}{
   \itemize{
     \item{NAMESPACE addition}
