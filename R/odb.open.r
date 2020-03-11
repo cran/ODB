@@ -21,7 +21,7 @@ odb.open = function(
 	{
 	# Default jarFile
 	if (is.null(jarFile)) {
-		jarFile <- system.file("tools/hsqldb.jar", package="ODB")
+		jarFile <- system.file("java/hsqldb.jar", package="ODB")
 	}
 	
 	# Normalized paths
@@ -45,7 +45,7 @@ odb.open = function(
 	status = list()
 	for(f in dbFiles) {
 		status[[f]] = tryCatch(
-			unzip(
+			utils::unzip(
 				zipfile = odbFile,
 				files = paste("database", f, sep="/"),
 				exdir = directory
@@ -62,7 +62,7 @@ odb.open = function(
 	
 	# Extracts content.xml
 	status = tryCatch(
-		unzip(
+		utils::unzip(
 			zipfile = odbFile,
 			files = "content.xml",
 			exdir = directory
@@ -76,7 +76,7 @@ odb.open = function(
 	
 	# HSQLDB version of JAR file
 	tryCatch(
-		unzip(
+		utils::unzip(
 			zipfile = jarFile,
 			files = "META-INF/MANIFEST.MF",
 			exdir = directory

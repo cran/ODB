@@ -1,17 +1,18 @@
 Package: ODB
 Type: Package
-Title: Open Document Databases (.odb) management
-Version: 1.1.1
-Date: 2012-07-23
+Title: Open Document Databases (.odb) Management
+Version: 1.2.1
+Date: 2020-03-10
 Author: Sylvain Mareschal
 Maintainer: Sylvain Mareschal <maressyl@gmail.com>
-URL: http://bioinformatics.ovsa.fr/R
-Description: This package provides functions to create, connect, update
-        and query HSQL databases embedded in Open Document Databases
-        (.odb) files, as OpenOffice and LibreOffice do.
+URL: http://bioinformatics.ovsa.fr/ODB
+BugReports: https://github.com/maressyl/R.ODB/issues
+Description: Functions to create, connect, update and query 'HSQL' databases embedded in Open Document Databases files, as 'OpenOffice' and 'LibreOffice' do.
 License: GPL (>= 3)
 Depends: methods, DBI, RJDBC
+Imports: utils
 SystemRequirements: zip
-Packaged: 2012-07-23 18:18:42 UTC; sylvain
+NeedsCompilation: no
+Packaged: 2020-03-11 11:44:12 UTC; sylvain
 Repository: CRAN
-Date/Publication: 2012-07-23 20:38:18
+Date/Publication: 2020-03-11 12:40:08 UTC
